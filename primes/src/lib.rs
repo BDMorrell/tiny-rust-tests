@@ -4,7 +4,7 @@
 /// # Panic
 /// Panics if the product of the seed_primes overflows.
 pub fn generate_prime_seive(seed_primes: &[u32]) -> Vec<u32> {
-    let length: u32 = seed_primes.into_iter().product(); // NOTE: May panic
+    let length: u32 = seed_primes.iter().product(); // NOTE: May panic
     let next_prime = first_new_prime(seed_primes);
 
     let mut seive: Vec<u32> = Vec::<u32>::with_capacity(length.try_into().unwrap());
@@ -21,7 +21,7 @@ pub(crate) fn first_new_prime(known_primes: &[u32]) -> u32 {
             return n;
         }
     }
-    return 0; // NOTE: document this!
+    0 // NOTE: document this!
 }
 
 /// Test if a number is prime, given a list of known primes.
@@ -38,7 +38,7 @@ pub(crate) fn naive_is_prime(n: u32, known_primes: &[u32]) -> bool {
             return false;
         }
     }
-    return true;
+    true
 }
 
 #[cfg(test)]
