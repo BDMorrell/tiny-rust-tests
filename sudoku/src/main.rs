@@ -4,9 +4,9 @@
 //!
 //! Notes to self:
 //!
-//! * I heard that Sudoku puzzle solving is so sipmle that it is hard to program something that is faster than
+//! * I heard that Sudoku puzzle solving is so simple that it is hard to program something that is faster than
 //!   brute-force, so all overhead is bad.
-//! * Try to avoid conditional brnaching.
+//! * Try to avoid conditional branching.
 //! * Try to write test code (maybe even just documentation.)
 //!
 //! # NOTE
@@ -15,19 +15,19 @@
 //!     as a viable bit selector.
 //!     * [`B9_MASK`] would be suffixed with the new padding bit.
 //!   * A [`SudokuState::cells`] could have it's 'empty' value be 0. (And a zero flag is a thing processors have.) This
-//!     would probably make more sense, and I could even have Rust's `None` by using a `std::num::NonZeroI8`. for
+//!     would probably make more sense, and I could even have Rust's `None` by using a `std::num::NonZeroI8` for
 //!     [`SudokuState::cells`].
-//!     * This would also allow bit-packing two cells into a single byte, thoubh if I use an `Option`, it would be
+//!     * This would also allow bit-packing two cells into a single byte, though if I use an `Option`, it would be
 //!       unsafe, and I'd have to add tests to make sure that the representation I'm expecting it to be is the same as
 //!       the actual compiled representation. Though this can get bad if using optimizations or not changes the
 //!       representation.
 //!   * If I'm still using the bitmask to represent what's already in the set, than this could make the whole empty
-//!   default be a bunch of zeros! If I'm feeling like using unsafe code, I could initalize the value with
+//!   default be a bunch of zeros! If I'm feeling like using unsafe code, I could initialize the value with
 //!   `std::mem::zeroed`.
 
 /// 9-bit-wide bitflag set
 ///
-/// Type that contians bitflags for the potential or exstance of Sudoku values `0..=8`, stored as `1 << [0..=8]`
+/// Type that contains bitflags for the potential or existence of Sudoku values `0..=8`, stored as `1 << [0..=8]`
 ///
 ///
 /// # TODO:
@@ -52,14 +52,14 @@ pub struct SudokuState {
     ///
     /// TODO:
     /// * an enum (like `Optional`) could be a good idea…
-    /// * if I'm not using an enum, than what sould be the set of all valid values?
+    /// * if I'm not using an enum, than what should be the set of all valid values?
     ///   * it might be useful to have Sudoku have symbols 0...=8. (This requires a minimum of 4 bits; where 9..16 are
     ///     free for other use.) If I use symbols 0..=8, than it seems logical to use either 9 or 0xF to represent the
     ///     "empty" (unset) value.
     ///     * Right now, "empty" is represented using 0xF. This is done in [`BLANK_SUDOKU_STATE`].
     /// * Should I pack the cell values, so that I use packed `u4`s?
     cells: [u8; 81],
-    /// Consiss of 3 `[b9; 9]` sets for the
+    /// Consists of 3 `[b9; 9]` sets for the
     /// 1. rows (`idx` ∈ [0..9) )
     /// 2. columns (`idx` ∈ [9..18) )
     /// 3. boxes (`idx` ∈ [18..27) )
@@ -70,7 +70,7 @@ pub struct SudokuState {
     ///
     /// The union of these three sets represents the unavailability (or prior existence of) finalized cells.
     ///
-    /// TODO: make lookup tables for indicies, or see if doing the maths to generate the values is faster.
+    /// TODO: make lookup tables for indices, or see if doing the maths to generate the values is faster.
     sets: [b9; 27],
 }
 
